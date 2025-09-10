@@ -1,0 +1,14 @@
+I just uploaded the initial public version (v1.0.0) of my new Subscriber Buffs Reminder plugin over at [url=https://www.lotrointerface.com/downloads/info1269-SubscriberBuffsReminder.html]lotrointerface.com[/url]. 
+
+This is a very simple plugin that pops up a window when you log in if you have less than 24 hours remaining on your Subscriber Buffs effect, or if you are missing the effect.
+
+[IMG]https://www.lotrointerface.com/downloads/full3869.jpg[/IMG]
+
+Version 1.0.0 release notes:
+
+[list]
+    [*] The plugin only checks for the effect when first loaded.
+    [*] If you have the effect, and it will last for more than 24 more hours, it does nothing more.
+    [*] If not, it displays the above window.
+    [*] If the window is still visible when you gain the effect or refresh it by drinking from the Subscriber's Jug, it will auto-hide itself.
+[/list]
