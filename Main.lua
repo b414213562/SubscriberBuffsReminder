@@ -4,6 +4,8 @@ import "Turbine.UI.Lotro";
 
 import "CubePlugins.SubscriberBuffsReminder.Functions";
 import "CubePlugins.SubscriberBuffsReminder.Strings";
+import "CubePlugins.SubscriberBuffsReminder.Options";
+import "CubePlugins.SubscriberBuffsReminder.Settings";
 
 -- On startup:
 -- Figure out the client language
@@ -52,7 +54,7 @@ function HandleSubscriberBuffs(effect)
 
     local secondsElapsed = Turbine.Engine.GetGameTime() - effect:GetStartTime();
     local secondsRemaining = effect:GetDuration() - secondsElapsed;
-    local minimumSeconds = 86400; 
+    local minimumSeconds = GetSavedSeconds();
 
     if (secondsRemaining < minimumSeconds) then
         ShowWindow();
@@ -78,8 +80,11 @@ function CreateWindow()
 
     local label = Turbine.UI.Label();
     label:SetParent(ReminderWindow);
-    label:SetFont(Turbine.UI.Lotro.Font.BookAntiqua36);
-    label:SetFont(Turbine.UI.Lotro.Font.TrajanPro28);
+    if (ClientLanguage == RU) then
+        label:SetFont(Turbine.UI.Lotro.Font.BookAntiqua36);
+    else
+        label:SetFont(Turbine.UI.Lotro.Font.TrajanPro28);
+    end
     label:SetTextAlignment(Turbine.UI.ContentAlignment.MiddleCenter);
     label:SetText(_LANG["WINDOW_TEXT"][ClientLanguage]);
     label:SetSize(
@@ -93,5 +98,15 @@ function ShowWindow()
     ReminderWindow:SetVisible(true);
 end
 
+function RegisterForUnload()
+    Turbine.Plugin.Unload = function(sender, args)
+        SaveSettings();
+    end
+end
+
+RegisterForUnload();
+LoadSettings();
+
 CreateWindow();
 CheckForSubscriberBuffs();
+CreateOptionsControl();

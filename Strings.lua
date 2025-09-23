@@ -1,27 +1,44 @@
 
 Turbine.Language.Russian = 0x10000007; -- removed in Update 22 and again in Update 34
 
+EN = Turbine.Language.English;
+DE = Turbine.Language.German;
+FR = Turbine.Language.French;
+RU = Turbine.Language.Russian;
+
 _LANG = {
     ["BUFF_NAME"] = {
-        [Turbine.Language.English] = "Subscriber Buffs";
-        -- [Turbine.Language.English] = "Ironfold Edhelharn Token: Give Hope";
-        --[Turbine.Language.English] = "We don't have this buff";
-        [Turbine.Language.French] = "Renforts d'abonné";
-        [Turbine.Language.German] = "Abonnenten-Stärkungen";
-        [Turbine.Language.Russian] = "Подарки подписчика";
+        [EN] = "Subscriber Buffs";
+        [FR] = "Renforts d'abonné";
+        [DE] = "Abonnenten-Stärkungen";
+        [RU] = "Подарки подписчика";
     };
 
     ["WINDOW_TITLE"] = {
-        [Turbine.Language.English] = "Subscriber Buffs Reminder";
-        [Turbine.Language.French]  = "Rappel des Renforts d'abonné";
-        [Turbine.Language.German]  = "Erinnerung an Abonnenten-Stärkungen";
-        [Turbine.Language.Russian] = "Напоминание о Подарки подписчика";
+        [EN] = "Subscriber Buffs Reminder";
+        [FR]  = "Rappel des Renforts d'abonné";
+        [DE]  = "Erinnerung an Abonnenten-Stärkungen";
+        [RU] = "Subscriber Buffs Reminder";
+        --[RU] = "Напоминание о Подарки подписчика"; -- Not sure how to make the window title font work
     };
     ["WINDOW_TEXT"] = {
-        [Turbine.Language.English] = "It is time to talk to Wenda!";
-        [Turbine.Language.French] = "It is time to talk to Wenda!";
-        [Turbine.Language.German] = "It is time to talk to Wenda!";
-        [Turbine.Language.Russian] = "It is time to talk to Wenda!";
+        [EN] = "It is time to talk to Wenda!";
+        [FR] = "Il est temps de parler à Wenda !";
+        [DE] = "Es ist Zeit, mit Wenda zu sprechen!";
+        [RU] = "Пришло время поговорить с Вендой!";
+    };
+
+    ["ADVANCED_NOTICE_LABEL"] = {
+        [EN] = "Warn me before the buff expires this far in advance:";
+        [FR] = "Prévenez-moi avant que le buff n'expire aussi longtemps à l'avance :";
+        [DE] = "Warnen Sie mich, bevor der Buff so weit im Voraus abläuft:";
+        [RU] = "Предупредите меня, прежде чем действие баффа истечет задолго до этого:";
+    };
+    ["TIME_LABELS"] = {
+        [EN] = { "Days",     "Hours",    "Minutes",  "Seconds", };
+        [FR] = { "Jours",    "Heures",   "Minutes",  "Secondes" };
+        [DE] = { "Tage",     "Stunden",  "Minuten",  "Sekunden" };
+        [RU] = { "Дни",      "часы",     "минуты",   "секунды" };
     };
 
 };
