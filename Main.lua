@@ -7,6 +7,23 @@ import "CubePlugins.SubscriberBuffsReminder.Strings";
 import "CubePlugins.SubscriberBuffsReminder.Options";
 import "CubePlugins.SubscriberBuffsReminder.Settings";
 
+LocalPlayer = Turbine.Gameplay.LocalPlayer.GetInstance();
+
+-- If this is loaded during session play, don't do anything.
+function IsSessionPlay()
+    local name = LocalPlayer:GetName();
+
+    local firstChar = name:sub(1,1);
+    local isSessionPlay = firstChar == "~";
+
+    return isSessionPlay;
+end
+
+if (IsSessionPlay()) then
+    return; -- stop processing the rest of this file
+end
+-- End check for session play
+
 -- On startup:
 -- Figure out the client language
 
@@ -19,7 +36,6 @@ import "CubePlugins.SubscriberBuffsReminder.Settings";
 --   close the window if open
 
 ClientLanguage = GetClientLanguage();
-LocalPlayer = Turbine.Gameplay.LocalPlayer.GetInstance();
 Effects = LocalPlayer:GetEffects();
 BuffName = _LANG["BUFF_NAME"][ClientLanguage];
 
