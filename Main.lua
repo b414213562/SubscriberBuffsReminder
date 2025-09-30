@@ -57,6 +57,19 @@ function CheckForSubscriberBuffs()
     HandleSubscriberBuffs(nil);
 end
 
+---Returns whether we have the Subscriber Town Services inventory item. We can't see the expiration time, so just checking for presence or absence.
+---@return boolean; true if present, false if absent
+function DoesBackpackContainSubscriberTownServices()
+    local backpack = LocalPlayer:GetBackpack();
+    for i=1, backpack:GetSize() do
+        local item = backpack:GetItem(i);
+        if (item and item:GetName() == _LANG.INVENTORY_ITEM_NAME[ClientLanguage]) then
+            return true;
+        end
+    end
+    return false;
+end
+
 function HandleSubscriberBuffs(effect)
     -- If it's nil, show the window:
     if (effect == nil) then
@@ -73,6 +86,13 @@ function HandleSubscriberBuffs(effect)
     local minimumSeconds = GetSavedSeconds();
 
     if (secondsRemaining < minimumSeconds) then
+        ShowWindow();
+        return;
+    end
+
+    -- At this point, the window won't be shown because of the effect.
+    -- Check for inventory item, just in case the player threw it away accidentally.
+    if (not DoesBackpackContainSubscriberTownServices()) then
         ShowWindow();
         return;
     end

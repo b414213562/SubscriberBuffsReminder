@@ -14,6 +14,13 @@ _LANG = {
         [RU] = "Подарки подписчика";
     };
 
+    ["INVENTORY_ITEM_NAME"] = {
+        [EN] = "Subscriber Town Services";
+        [FR] = "Abonnement Services de ville";
+        [DE] = "Abonnenten-Stadt-Dienstleistungen";
+        [RU] = "Услуги города для подписчиков";
+    };
+
     ["WINDOW_TITLE"] = {
         [EN] = "Subscriber Buffs Reminder";
         [FR]  = "Rappel des Renforts d'abonné";
