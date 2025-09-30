@@ -76,7 +76,7 @@ function HandleSubscriberBuffs(effect)
         ShowWindow();
         return;
     end
-    
+
     effect.StartTimeChanged = function(sender, args)
         HandleSubscriberBuffs(effect);
     end
