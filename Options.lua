@@ -121,7 +121,7 @@ function CreateMinMaxTextBox(index, min, max, default)
         if (args.Action == 162) then -- enter
             -- move to next box
             local change = 1;
-            if (args.Shift) then change = -1; end
+            if (args.Shift) then change = -1; end -- or previous box
             local newI = textBox.Index + change;
             if (newI < 1) then newI = #TextBoxes; end
             if (newI > #TextBoxes) then newI = 1; end
