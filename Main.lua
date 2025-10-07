@@ -85,7 +85,6 @@ function CheckForSubscriberTownServices()
     if (not DoesBackpackContainSubscriberTownServices()) then
         Debug("Backpack does not contain Subscriber Town Services, showing window")
         ShowWindow();
-        return;
     else
         Debug("Subscriber Town Services was found in the backpack");
     end
