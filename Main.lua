@@ -83,8 +83,11 @@ function CheckForSubscriberTownServices()
     -- Normally, the effect will be present for the same approximate duration.
     -- Check for inventory item anyway, just in case the player threw it away accidentally.
     if (not DoesBackpackContainSubscriberTownServices()) then
+        Debug("Backpack does not contain Subscriber Town Services, showing window")
         ShowWindow();
         return;
+    else
+        Debug("Subscriber Town Services was found in the backpack");
     end
 
 end
@@ -99,6 +102,7 @@ LocalPlayer:GetBackpack().ItemAdded = function(sender,args)
     if (isItem) then
         StopTimer(BackpackTimer); -- we found it, no need to look anymore!
         sender.ItemAdded = nil;
+        Debug("Subscriber Town Services was added to the backpack")
     else
         StartTimer(BackpackTimer); -- restart how much time is left on the timer.
     end
@@ -107,6 +111,7 @@ end
 function HandleSubscriberBuffs(effect)
     -- If it's nil, show the window:
     if (effect == nil) then
+        Debug("Character is missing Subscriber Buffs effect");
         ShowWindow();
         return;
     end
@@ -120,10 +125,12 @@ function HandleSubscriberBuffs(effect)
     local minimumSeconds = GetSavedSeconds();
 
     if (secondsRemaining < minimumSeconds) then
+        Debug("Character has the Subscriber Buffs effect, but not enough time remains");
         ShowWindow();
         return;
     end
 
+    Debug("Character has the Subscriber Buffs effect. Effect will not cause window to be shown.")
     ReminderWindow:SetVisible(false);
 end
 
