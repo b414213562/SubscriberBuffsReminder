@@ -16,6 +16,7 @@ _LANG = {
 
     ["INVENTORY_ITEM_NAME"] = {
         [EN] = "Subscriber Town Services";
+        --[EN] = "Writ of Special Passage: 1 Hour";
         [FR] = "Abonnement Services de ville";
         [DE] = "Abonnenten-Stadt-Dienstleistungen";
         [RU] = "Услуги города для подписчиков";
@@ -46,6 +47,13 @@ _LANG = {
         [FR] = { "Jours",    "Heures",   "Minutes",  "Secondes" };
         [DE] = { "Tage",     "Stunden",  "Minuten",  "Sekunden" };
         [RU] = { "Дни",      "часы",     "минуты",   "секунды" };
+    };
+
+    ["NOT_TIME"] = {
+        [EN] = "It is not time to talk to Wenda.";
+        [FR] = "Ce n’est pas le moment de parler à Wenda.";
+        [DE] = "Es ist nicht die Zeit, mit Wenda zu reden.";
+        [RU] = "Сейчас не время разговаривать с Вендой.";
     };
 
 };
