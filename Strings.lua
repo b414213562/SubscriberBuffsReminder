@@ -16,7 +16,6 @@ _LANG = {
 
     ["INVENTORY_ITEM_NAME"] = {
         [EN] = "Subscriber Town Services";
-        --[EN] = "Writ of Special Passage: 1 Hour";
         [FR] = "Abonnement Services de ville";
         [DE] = "Abonnenten-Stadt-Dienstleistungen";
         [RU] = "Услуги города для подписчиков";
