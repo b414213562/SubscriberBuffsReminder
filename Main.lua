@@ -12,6 +12,35 @@ import "CubePlugins.SubscriberBuffsReminder.Timer";
 
 LocalPlayer = Turbine.Gameplay.LocalPlayer.GetInstance();
 
+ItemFound = nil;
+EffectFound = nil;
+WendaAnnounced = false;
+
+function SetItemFound(value)
+    ItemFound = value;
+    AnnounceWendaInChatIfPossible();
+end
+
+function SetEffectFound(value)
+    EffectFound = value;
+    AnnounceWendaInChatIfPossible();
+end
+
+function AnnounceWendaInChatIfPossible()
+    if (WendaAnnounced) then return; end
+
+    Debug("EffectFound: " .. dump(EffectFound) .. ", ItemFound: " .. dump(ItemFound));
+
+    if (ItemFound ~= nil and EffectFound ~= nil) then
+        if (not EffectFound or not ItemFound) then
+            Turbine.Shell.WriteLine("<rgb=#FF5555>" .. _LANG.WINDOW_TEXT[ClientLanguage] .. "</rgb>");
+        else
+            Turbine.Shell.WriteLine("<rgb=#55FF55>" .. _LANG.NOT_TIME[ClientLanguage] .. "</rgb>");
+        end
+        WendaAnnounced = true;
+    end
+end
+
 -- If this is loaded during session play, don't do anything.
 function IsSessionPlay()
     local name = LocalPlayer:GetName();
@@ -84,9 +113,11 @@ function CheckForSubscriberTownServices()
     -- Check for inventory item anyway, just in case the player threw it away accidentally.
     if (not DoesBackpackContainSubscriberTownServices()) then
         Debug("Backpack does not contain Subscriber Town Services, showing window")
+        SetItemFound(false);
         ShowWindow();
     else
         Debug("Subscriber Town Services was found in the backpack");
+        SetItemFound(true);
     end
 
 end
@@ -102,6 +133,7 @@ LocalPlayer:GetBackpack().ItemAdded = function(sender,args)
         StopTimer(BackpackTimer); -- we found it, no need to look anymore!
         sender.ItemAdded = nil;
         Debug("Subscriber Town Services was added to the backpack")
+        SetItemFound(true);
     else
         StartTimer(BackpackTimer); -- restart how much time is left on the timer.
     end
@@ -111,6 +143,7 @@ function HandleSubscriberBuffs(effect)
     -- If it's nil, show the window:
     if (effect == nil) then
         Debug("Character is missing Subscriber Buffs effect");
+        SetEffectFound(false);
         ShowWindow();
         return;
     end
@@ -125,11 +158,13 @@ function HandleSubscriberBuffs(effect)
 
     if (secondsRemaining < minimumSeconds) then
         Debug("Character has the Subscriber Buffs effect, but not enough time remains");
+        SetEffectFound(false);
         ShowWindow();
         return;
     end
 
     Debug("Character has the Subscriber Buffs effect. Effect will not cause window to be shown.")
+    SetEffectFound(true);
     ReminderWindow:SetVisible(false);
 end
 
