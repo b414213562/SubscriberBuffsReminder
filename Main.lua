@@ -6,6 +6,7 @@ import "CubePlugins.SubscriberBuffsReminder.Functions";
 import "CubePlugins.SubscriberBuffsReminder.Strings";
 import "CubePlugins.SubscriberBuffsReminder.Options";
 import "CubePlugins.SubscriberBuffsReminder.Settings";
+import "CubePlugins.SubscriberBuffsReminder.Timer";
 
 LocalPlayer = Turbine.Gameplay.LocalPlayer.GetInstance();
 
@@ -57,17 +58,48 @@ function CheckForSubscriberBuffs()
     HandleSubscriberBuffs(nil);
 end
 
+function IsBackpackItemSubscriberTownServices(item)
+    local isSubscriberTownServices = item and item:GetName() == _LANG.INVENTORY_ITEM_NAME[ClientLanguage];
+    return isSubscriberTownServices;
+end
+
 ---Returns whether we have the Subscriber Town Services inventory item. We can't see the expiration time, so just checking for presence or absence.
 ---@return boolean; true if present, false if absent
 function DoesBackpackContainSubscriberTownServices()
     local backpack = LocalPlayer:GetBackpack();
     for i=1, backpack:GetSize() do
         local item = backpack:GetItem(i);
-        if (item and item:GetName() == _LANG.INVENTORY_ITEM_NAME[ClientLanguage]) then
+        local isItem = IsBackpackItemSubscriberTownServices(item);
+        if (isItem) then
             return true;
         end
     end
     return false;
+end
+
+function CheckForSubscriberTownServices()
+    -- Normally, the effect will be present for the same approximate duration.
+    -- Check for inventory item anyway, just in case the player threw it away accidentally.
+    if (not DoesBackpackContainSubscriberTownServices()) then
+        ShowWindow();
+        return;
+    end
+
+end
+
+local timerDelay = 5000; -- 5 seconds seems to work well
+BackpackTimer = MakeTimer(timerDelay, false, function() CheckForSubscriberTownServices() end);
+StartTimer(BackpackTimer);
+
+LocalPlayer:GetBackpack().ItemAdded = function(sender,args)
+    local item = sender:GetItem(args.Index);
+    local isItem = IsBackpackItemSubscriberTownServices(item);
+    if (isItem) then
+        StopTimer(BackpackTimer); -- we found it, no need to look anymore!
+        sender.ItemAdded = nil;
+    else
+        StartTimer(BackpackTimer); -- restart how much time is left on the timer.
+    end
 end
 
 function HandleSubscriberBuffs(effect)
@@ -86,13 +118,6 @@ function HandleSubscriberBuffs(effect)
     local minimumSeconds = GetSavedSeconds();
 
     if (secondsRemaining < minimumSeconds) then
-        ShowWindow();
-        return;
-    end
-
-    -- At this point, the window won't be shown because of the effect.
-    -- Check for inventory item, just in case the player threw it away accidentally.
-    if (not DoesBackpackContainSubscriberTownServices()) then
         ShowWindow();
         return;
     end
