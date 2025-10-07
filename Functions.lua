@@ -54,6 +54,18 @@ function dump(o)
    end
 end
 
-function debug(text)
-    Turbine.Shell.WriteLine(text);
+function Debug(message)
+    if (message == nil or message == "" or not SHOW_DEBUG_OUTPUT) then
+        return;
+    end
+
+    Turbine.Shell.WriteLine("<rgb=#FF5555>" .. message .. "</rgb>");
+end
+
+function Info(message)
+    if (message == nil or message == "") then
+        return;
+    end
+
+    Turbine.Shell.WriteLine("<rgb=#55FF55>" .. message .. "</rgb>");
 end

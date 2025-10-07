@@ -2,6 +2,8 @@ import "Turbine";
 import "Turbine.Gameplay";
 import "Turbine.UI.Lotro";
 
+SHOW_DEBUG_OUTPUT = false;
+
 import "CubePlugins.SubscriberBuffsReminder.Functions";
 import "CubePlugins.SubscriberBuffsReminder.Strings";
 import "CubePlugins.SubscriberBuffsReminder.Options";
